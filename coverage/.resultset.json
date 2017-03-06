@@ -1,0 +1,45 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/janicelichtman/Desktop/ADA/class/projects/ride-share-two/lib/driver.rb": [
+        null,
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/janicelichtman/Desktop/ADA/class/projects/ride-share-two/specs/rider_spec.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/janicelichtman/Desktop/ADA/class/projects/ride-share-two/lib/rider.rb": [
+
+      ],
+      "/Users/janicelichtman/Desktop/ADA/class/projects/ride-share-two/specs/trip_spec.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/janicelichtman/Desktop/ADA/class/projects/ride-share-two/lib/trip.rb": [
+
+      ]
+    },
+    "timestamp": 1488840253
+  }
+}
