@@ -22,9 +22,19 @@ module RideShare
     end
 
 
+def self.find(driver_id)
+  found_drivers = all.select {|driver| driver.id == driver_id}
+  raise ArgumentError.new("That driver id doesn't exist!")  if found_drivers[0]==nil
+  #The following is not testable without ammending the CSV, given our setup, so I am not including the error raising
+  # raise ArgumentError.new("Uh-oh. There are multiple drivers with that ID!")  if found_drivers[0]!= 1
+  return found_drivers[0]
+end
+
+
+
+
   end
 end
 
 #puts RideShare::Driver.all[5].name
-
 #puts CSV.read("support/drivers.csv").length

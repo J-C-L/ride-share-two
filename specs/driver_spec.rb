@@ -72,8 +72,49 @@ describe "RideShare::Driver" do
     RideShare::Driver.all.last.id.must_equal 100, "ID of last driver is incorrect."
     RideShare::Driver.all.last.name.must_equal 'Minnie Dach', "NAME of last driver is incorrect."
     RideShare::Driver.all.last.vin.must_equal 'XF9Z0ST7X18WD41HT', "VIN of last driver is incorrect."
-    end
+  end
+end
+
+
+describe "RideShare::Driver.find" do
+  it "Returns a Driver that exists" do
+    RideShare::Driver.find(88).must_be_instance_of RideShare::Driver, "Does not return a driver"
   end
 
+  it "Raises ArgumentError if driver id doesn't exist" do
+    proc {
+        RideShare::Driver.find(500)
+        }.must_raise ArgumentError
+  end
 
+  # it "Raises ArgumentError if multiple drivers have the given id" do
+  #   new_driver_hash = {id:'42', name:'Joe Schmo', vin:'10000000000000000'}
+  #   extra_driver = RideShare::Driver.new(@new_driver_hash)
+  #   proc {
+  #
+  #       RideShare::Driver.find(42)
+  #       }.must_raise ArgumentError
+  # end
+
+end
+#
+#   it "Can find the first account from the CSV" do
+#     Bank::Account.reset_all_accounts_for_test
+#     Bank::Account.read_csv
+#     expect(Bank::Account.find(1212)).must_equal Bank::Account.all.first, "Cannot find first account"
+#   end
+#
+#   it "Can find the last account from the CSV" do
+#     Bank::Account.reset_all_accounts_for_test
+#     Bank::Account.read_csv
+#     expect(Bank::Account.find(15156)).must_equal Bank::Account.all.last, "Cannot find last account"
+#   end
+#
+#   it "Raises an error for an account that doesn't exist" do
+#     Bank::Account.reset_all_accounts_for_test
+#     Bank::Account.read_csv
+#     proc {
+#       Bank::Account.find(9999999)
+#     }.must_raise ArgumentError
+#   end
 end
