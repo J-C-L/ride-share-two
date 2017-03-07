@@ -3,7 +3,6 @@
     "coverage": {
       "/Users/janicelichtman/Desktop/ADA/class/projects/ride-share-two/lib/driver.rb": [
         1,
-        null,
         1,
         null,
         1,
@@ -11,6 +10,8 @@
         1,
         null,
         1,
+        null,
+        1,
         0,
         0,
         0,
@@ -25,7 +26,6 @@
         0,
         null,
         null,
-        null,
         1,
         0,
         0,
@@ -50,6 +50,15 @@
         null,
         null,
         null,
+        null,
+        null
+      ],
+      "/Users/janicelichtman/Desktop/ADA/class/projects/ride-share-two/lib/exception_classes.rb": [
+        1,
+        1,
+        null,
+        null,
+        1,
         null,
         null
       ],
@@ -125,13 +134,36 @@
         0,
         0,
         null,
-        null,
         0,
         0,
         null,
+        0,
+        0,
         null,
-        0,
-        0,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null,
         null,
         null,
@@ -139,6 +171,6 @@
         null
       ]
     },
-    "timestamp": 1488915267
+    "timestamp": 1488919027
   }
 }

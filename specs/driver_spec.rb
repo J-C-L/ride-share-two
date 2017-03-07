@@ -23,11 +23,11 @@ describe "RideShare::Driver" do
       new_driver.vin.must_equal new_driver_hash[:vin]
     end
 
-    it "Raises an ArgumentError when created with an invalid vin (ie. vin of wrong length)" do
+    it "Raises an Invalid_VIN_Error when created with an invalid vin (ie. vin of wrong length)" do
       bad_vin_hash = {vin:'1B9TPKC24YPL290Y4-9999'}
       proc {
         RideShare::Driver.new(bad_vin_hash)
-      }.must_raise ArgumentError
+      }.must_raise RideShare::Invalid_VIN_Error 
     end
   end
 

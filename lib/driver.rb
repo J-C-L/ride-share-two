@@ -1,4 +1,5 @@
 require 'csv'
+require_relative 'exception_classes.rb'
 
 module RideShare
 
@@ -10,7 +11,7 @@ module RideShare
       @id = args[:id]
       @name = args[:name]
       @vin = args[:vin]
-      raise ArgumentError.new("Invalid vin") if vin.length != 17
+      raise Invalid_VIN_Error.new("Invalid vin") if vin.length != 17
     end
 
     def self.all
@@ -21,11 +22,10 @@ module RideShare
       return all_drivers
     end
 
-
     def self.find(driver_id)
-      driver = all.find {|driver| driver.id == driver_id}
-      raise ArgumentError.new("That driver id doesn't exist!") if driver==nil
-      return driver
+      found_driver = all.find {|driver| driver.id == driver_id}
+      raise ArgumentError.new("That driver id doesn't exist!") if found_driver==nil
+      return found_driver
     end
 
 
