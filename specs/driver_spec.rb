@@ -27,7 +27,7 @@ describe "RideShare::Driver" do
       bad_vin_hash = {vin:'1B9TPKC24YPL290Y4-9999'}
       proc {
         RideShare::Driver.new(bad_vin_hash)
-      }.must_raise RideShare::Invalid_VIN_Error 
+      }.must_raise RideShare::Invalid_VIN_Error
     end
   end
 
@@ -63,7 +63,7 @@ describe "RideShare::Driver.find" do
   it "Raises ArgumentError if driver id doesn't exist" do
     proc {
       RideShare::Driver.find(500)
-    }.must_raise ArgumentError
+    }.must_raise RideShare::No_ID_Error
   end
 
   it "Can find the last driver from the CSV" do

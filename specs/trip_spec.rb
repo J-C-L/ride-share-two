@@ -34,13 +34,13 @@ describe "RideShare::Trip" do
       it "Raises an ArgumentError when created with an invalid rating" do
         proc {
           RideShare::Trip.new({rating:0})
-        }.must_raise ArgumentError
+        }.must_raise RideShare::Invalid_Rating_Error
         proc {
           RideShare::Trip.new({rating:6})
-        }.must_raise ArgumentError
+        }.must_raise RideShare::Invalid_Rating_Error
         proc {
           RideShare::Trip.new({rating:'a'})
-        }.must_raise ArgumentError
+        }.must_raise RideShare::Invalid_Rating_Error
       end
   end
 

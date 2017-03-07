@@ -24,7 +24,7 @@ module RideShare
 
     def self.find(driver_id)
       found_driver = all.find {|driver| driver.id == driver_id}
-      raise ArgumentError.new("That driver id doesn't exist!") if found_driver==nil
+      raise No_ID_Error.new("That driver id doesn't exist!") if found_driver==nil
       return found_driver
     end
 

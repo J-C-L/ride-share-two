@@ -1,4 +1,5 @@
 require 'csv'
+require_relative 'exception_classes.rb'
 
 module RideShare
 
@@ -12,7 +13,7 @@ module RideShare
       @rider_id = args[:rider_id]
       @date = args[:date]
       @rating = args[:rating]
-      raise ArgumentError.new("Rating must be from 1 to 5.") if !(1 <= @rating.to_f && @rating.to_f <=5)
+      raise Invalid_Rating_Error.new("Rating must be from 1 to 5.") if !(1 <= @rating.to_f && @rating.to_f <=5)
     end
 
     # def self.all

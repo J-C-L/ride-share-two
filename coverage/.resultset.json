@@ -60,12 +60,17 @@
         null,
         1,
         null,
+        null,
+        1,
+        null,
+        null,
         null
       ],
       "/Users/janicelichtman/Desktop/ADA/class/projects/ride-share-two/lib/rider.rb": [
         1
       ],
       "/Users/janicelichtman/Desktop/ADA/class/projects/ride-share-two/lib/trip.rb": [
+        1,
         1,
         null,
         1,
@@ -171,6 +176,6 @@
         null
       ]
     },
-    "timestamp": 1488919027
+    "timestamp": 1488919726
   }
 }
