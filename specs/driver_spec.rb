@@ -1,56 +1,35 @@
-require 'simplecov'
-SimpleCov.start
-
-require 'minitest/autorun'
-require 'minitest/reporters'
-require 'minitest/skip_dsl'
-require_relative '../lib/driver'
-
-require 'csv'
-
-#Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
-
-
+require_relative '../specs/spec_helper'
 
 describe "RideShare::Driver" do
 
-  before do
-    @new_driver_hash = {id:'42', name:'Granville Mertz', vin:'1B9TPKC24YPL290Y4'}
-    @new_driver = RideShare::Driver.new(@new_driver_hash)
-  end
+  let(:new_driver_hash) { {id:42, name:'Granville Mertz', vin:'1B9TPKC24YPL290Y4'} }
+  let(:new_driver) {RideShare::Driver.new(new_driver_hash)}
+
 
   describe "RideShare::Driver#initialize" do
 
     it "Creates a new instance of Driver class" do
-      # new_driver_hash = {id:'42', name:'Granville Mertz', vin:'1B9TPKC24YPL290Y4'}
-      # new_driver = RideShare::Driver.new(new_driver_hash)
-      @new_driver.must_be_instance_of RideShare::Driver
+      new_driver.must_be_instance_of RideShare::Driver
     end
 
     it "Takes a argument hash and assigns an id, name, and vin" do
-      # new_driver_hash = {id:'42', name:'Granville Mertz', vin:'1B9TPKC24YPL290Y4'}
-      # new_driver = RideShare::Driver.new(new_driver_hash)
+      new_driver.must_respond_to :id
+      new_driver.id.must_equal new_driver_hash[:id]
 
-      @new_driver.must_respond_to :id
-      @new_driver.id.must_equal @new_driver_hash[:id]
+      new_driver.must_respond_to :name
+      new_driver.name.must_equal new_driver_hash[:name]
 
-      @new_driver.must_respond_to :name
-      @new_driver.name.must_equal @new_driver_hash[:name]
-
-      @new_driver.must_respond_to :vin
-      @new_driver.vin.must_equal @new_driver_hash[:vin]
+      new_driver.must_respond_to :vin
+      new_driver.vin.must_equal new_driver_hash[:vin]
     end
 
-    it "Raises an ArgumentError when created with an invalid vin (ie. vin of wrong length) " do
+    it "Raises an ArgumentError when created with an invalid vin (ie. vin of wrong length)" do
       bad_vin_hash = {vin:'1B9TPKC24YPL290Y4-9999'}
-
       proc {
-        @new_driver = RideShare::Driver.new(bad_vin_hash)
+        RideShare::Driver.new(bad_vin_hash)
       }.must_raise ArgumentError
     end
-
   end
-
 
 
   describe "RideShare::Driver.all" do
@@ -83,17 +62,13 @@ describe "RideShare::Driver.find" do
 
   it "Raises ArgumentError if driver id doesn't exist" do
     proc {
-        RideShare::Driver.find(500)
-        }.must_raise ArgumentError
+      RideShare::Driver.find(500)
+    }.must_raise ArgumentError
   end
 
-
-    it "Can find the last driver from the CSV" do
-      #Checking that the id's of the returned and last drivers are the same, since they will not be the same internal object due to 'all' having been called separated for each.
-      RideShare::Driver.find(100).id.must_equal RideShare::Driver.all.last.id, "Cannot find last account"
-    end
-
-
+  it "Can find the last driver from the CSV" do
+    #Checking that the id's of the returned and last drivers are the same, since they will not be the same internal object due to 'all' having been called separated for each.
+    RideShare::Driver.find(100).id.must_equal RideShare::Driver.all.last.id, "Cannot find last account"
+  end
 end
-
 end

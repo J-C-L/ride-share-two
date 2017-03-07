@@ -39,6 +39,8 @@ module RideShare
     #   #OR
     #   #trips.map {|trip| trip.rating}.reduce(:+)/trips.length
     # end
+
+
   end
 end
 
