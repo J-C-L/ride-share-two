@@ -11,6 +11,7 @@ module RideShare
       @id = args[:id]
       @name = args[:name]
       @vin = args[:vin]
+      #Raising an error here to disallow drivers without valid cars
       raise Invalid_VIN_Error.new("Invalid vin") if vin.length != 17
     end
 
@@ -24,7 +25,8 @@ module RideShare
 
     def self.find(driver_id)
       found_driver = all.find {|driver| driver.id == driver_id}
-      raise ID_Not_Found_Error.new("That driver id doesn't exist!") if found_driver==nil
+      # raise ID_Not_Found_Error.new("That driver id doesn't exist!") if found_driver==nil
+      #Note: If the driver id isn't found, method will return nil.
       return found_driver
     end
 

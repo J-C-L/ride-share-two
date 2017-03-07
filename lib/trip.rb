@@ -29,8 +29,7 @@ module RideShare
     def self.all_by_driver(driver_id)
 
       all.select do  |trip|
-        raise No_ID_Error.new("That driver id doesn't exist!") if trip.driver_id==nil
-
+        #Note: Will return nil if driver id is not found
         trip.driver_id == driver_id
       end
     end

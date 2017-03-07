@@ -58,11 +58,11 @@ describe "RideShare::Driver.find" do
     RideShare::Driver.find(88).must_be_instance_of RideShare::Driver, "Does not return a driver"
   end
 
-  it "Raises ArgumentError if driver id doesn't exist" do
-    proc {
-      RideShare::Driver.find(500)
-    }.must_raise RideShare::ID_Not_Found_Error
-  end
+  # it "Raises ArgumentError if driver id doesn't exist" do
+  #   proc {
+  #     RideShare::Driver.find(500)
+  #   }.must_raise RideShare::ID_Not_Found_Error
+  # end
 
   it "Can find the last driver from the CSV" do
     #Checking that the id's of the returned and last drivers are the same, since they will not be the same internal object due to 'all' having been called separated for each.

@@ -87,15 +87,16 @@ describe "RideShare::Trip" do
 
     it "Returns ALL trips with the desired driver id" do
     end
-    puts RideShare::Trip.all_by_driver(300)
-    #   it "Raises ID_Not_Found_Error if driver id doesn't exist."do
-    #   proc {
-    #     RideShare::Trip.all_by_driver(500)
-    #   }.must_raise RideShare::ID_Not_Found_Error
-    # end
 
 
+    it "Returns empty array if no trips with the desired driver id are found."do
+      RideShare::Trip.all_by_driver(500).must_equal []
+      RideShare::Trip.all_by_driver(500).must_be_instance_of Array
+      RideShare::Trip.all_by_driver(500).length.must_equal 0
   end
 
-  # find all trip instances for a given rider ID
+
+end
+
+# find all trip instances for a given rider ID
 end
