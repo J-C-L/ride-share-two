@@ -13,6 +13,8 @@ module RideShare
       @rider_id = args[:rider_id]
       @date = args[:date]
       @rating = args[:rating]
+
+      raise ArgumentError.new("Rating must be a number from 1 to 5.") if @rating.class != (Integer||Float)
       raise Invalid_Rating_Error.new("Rating must be from 1 to 5.") if !(1 <= @rating.to_f && @rating.to_f <=5)
     end
 
@@ -25,7 +27,12 @@ module RideShare
     end
 
     def self.all_by_driver(driver_id)
-      all.select{|trip| trip.driver_id == driver_id}
+
+      all.select do  |trip|
+        raise No_ID_Error.new("That driver id doesn't exist!") if trip.driver_id==nil
+
+        trip.driver_id == driver_id
+      end
     end
 
 

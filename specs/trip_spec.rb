@@ -31,16 +31,19 @@ describe "RideShare::Trip" do
       new_trip.rating.must_equal new_trip_hash[:rating]
     end
 
-    it "Raises an ArgumentError when created with an invalid rating" do
+    it "Raises an Invalid_Rating_Error when created with an out of bounds rating" do
       proc {
         RideShare::Trip.new({rating:0})
       }.must_raise RideShare::Invalid_Rating_Error
       proc {
         RideShare::Trip.new({rating:6})
       }.must_raise RideShare::Invalid_Rating_Error
+    end
+
+    it "Raises an ArgumentError when created with a non-numeric rating" do
       proc {
         RideShare::Trip.new({rating:'a'})
-      }.must_raise RideShare::Invalid_Rating_Error
+      }.must_raise ArgumentError
     end
   end
 
@@ -84,10 +87,15 @@ describe "RideShare::Trip" do
 
     it "Returns ALL trips with the desired driver id" do
     end
+    puts RideShare::Trip.all_by_driver(300)
+    #   it "Raises ID_Not_Found_Error if driver id doesn't exist."do
+    #   proc {
+    #     RideShare::Trip.all_by_driver(500)
+    #   }.must_raise RideShare::ID_Not_Found_Error
+    # end
 
 
   end
-
 
   # find all trip instances for a given rider ID
 end
