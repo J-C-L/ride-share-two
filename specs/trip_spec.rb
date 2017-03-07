@@ -66,7 +66,28 @@ describe "RideShare::Trip" do
       RideShare::Trip.all.last.date.must_equal last_trip_hash[:date], "Date of last trip is incorrect."
       RideShare::Trip.all.last.rating.must_equal last_trip_hash[:rating], "Rating of last trip is incorrect."
     end
+  end
+
+
+  describe "RideShare::Trip.all_by_driver" do
+
+    it "Returns an array of Trip instances" do
+      driver_id = 42
+      RideShare::Trip.all_by_driver(driver_id).must_be_instance_of Array, "Not an array."
+      RideShare::Trip.all_by_driver(driver_id).each do |trip|
+        trip.must_be_instance_of  RideShare::Trip, "Not an instance of Trip class."
+      end
+    end
+
+    it "Returns  trips with the desired driver id" do
+    end
+
+    it "Returns ALL trips with the desired driver id" do
+    end
+
 
   end
 
+
+  # find all trip instances for a given rider ID
 end

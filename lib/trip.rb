@@ -23,5 +23,15 @@ module RideShare
       end
       return all_trips
     end
+
+    def self.all_by_driver(driver_id)
+      all.select{|trip| trip.driver_id == driver_id}
+    end
+
+
+
+
+
+
   end
 end

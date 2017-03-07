@@ -96,6 +96,16 @@
         0,
         null,
         null,
+        1,
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null
       ],
       "/Users/janicelichtman/Desktop/ADA/class/projects/ride-share-two/specs/rider_spec.rb": [
@@ -173,9 +183,30 @@
         null,
         null,
         null,
+        1,
+        null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null
       ]
     },
-    "timestamp": 1488923944
+    "timestamp": 1488924765
   }
 }
