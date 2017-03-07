@@ -16,12 +16,12 @@ module RideShare
       raise Invalid_Rating_Error.new("Rating must be from 1 to 5.") if !(1 <= @rating.to_f && @rating.to_f <=5)
     end
 
-    # def self.all
-    #   all_drivers =[]
-    #   CSV.foreach("support/drivers.csv", {:headers => true}) do |line|
-    #     all_drivers << self.new({id:line[0].to_i, name:line[1], vin:line[2]})
-    #   end
-    #   return all_drivers
-    # end
+    def self.all
+      all_trips =[]
+      CSV.foreach("support/trips.csv", {:headers => true}) do |line|
+        all_trips << self.new( {trip_id:line[0].to_i, driver_id:line[1].to_i, rider_id:line[2].to_i, date:line[3], rating:line[4].to_i} )
+      end
+      return all_trips
+    end
   end
 end

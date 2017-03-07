@@ -31,42 +31,42 @@ describe "RideShare::Trip" do
       new_trip.rating.must_equal new_trip_hash[:rating]
     end
 
-      it "Raises an ArgumentError when created with an invalid rating" do
-        proc {
-          RideShare::Trip.new({rating:0})
-        }.must_raise RideShare::Invalid_Rating_Error
-        proc {
-          RideShare::Trip.new({rating:6})
-        }.must_raise RideShare::Invalid_Rating_Error
-        proc {
-          RideShare::Trip.new({rating:'a'})
-        }.must_raise RideShare::Invalid_Rating_Error
-      end
+    it "Raises an ArgumentError when created with an invalid rating" do
+      proc {
+        RideShare::Trip.new({rating:0})
+      }.must_raise RideShare::Invalid_Rating_Error
+      proc {
+        RideShare::Trip.new({rating:6})
+      }.must_raise RideShare::Invalid_Rating_Error
+      proc {
+        RideShare::Trip.new({rating:'a'})
+      }.must_raise RideShare::Invalid_Rating_Error
+    end
   end
 
   describe "RideShare::Trip.all" do
 
-    # it "Returns an array of Trip instances" do
-    #   RideShare::Trip.all.must_be_instance_of Array, "Not an array."
-    #   RideShare::Trip.all.each do |trip|
-    #     trip.must_be_instance_of  RideShare::Trip, "Not an instance of Trip class."
-    #   end
-    # end
-    #
-    # it "Returns an array with the correct number of trips" do
-    #   number_of_trips = CSV.read("support/trips.csv").length - 1
-    #   RideShare::Trip.all.length.must_equal number_of_trips, "Wrong number of trips"
-    # end
+    it "Returns an array of Trip instances" do
+      RideShare::Trip.all.must_be_instance_of Array, "Not an array."
+      RideShare::Trip.all.each do |trip|
+        trip.must_be_instance_of  RideShare::Trip, "Not an instance of Trip class."
+      end
+    end
 
-  #   it "gives correct values for the trip_id, driver_id, rider_id, date, and rating of the last trip in the CSV file" do
-  #     last_trip_hash ={trip_id:600, driver_id:61, rider_id:168, date:'2016-04-25', rating:3}
-  #   RideShare::Trip.all.last.trip_id.must_equal last_trip_hash[:trip_id], "Trip ID of last driver is incorrect."
-  #   RideShare::Trip.all.last.driver_id.must_equal last_trip_hash[:driver_id], "Driver ID of last driver is incorrect."
-  #   RideShare::Trip.all.last.rider_id.must_equal last_trip_hash[:rider_id], "Rider ID of last driver is incorrect."
-  #   RideShare::Trip.all.last.date.must_equal last_trip_hash[:date], "Date of last driver is incorrect."
-  #   RideShare::Trip.all.last.rating.must_equal last_trip_hash[:rating], "Rating of last driver is incorrect."
-  # end
+    it "Returns an array with the correct number of trips" do
+      number_of_trips = CSV.read("support/trips.csv").length - 1
+      RideShare::Trip.all.length.must_equal number_of_trips, "Wrong number of trips"
+    end
 
-end
+    it "gives correct values for the trip_id, driver_id, rider_id, date, and rating of the last trip in the CSV file" do
+      last_trip_hash ={trip_id:600, driver_id:61, rider_id:168, date:'2016-04-25', rating:3}
+      RideShare::Trip.all.last.trip_id.must_equal last_trip_hash[:trip_id], "Trip ID of last trip is incorrect."
+      RideShare::Trip.all.last.driver_id.must_equal last_trip_hash[:driver_id], "Driver ID of last trip is incorrect."
+      RideShare::Trip.all.last.rider_id.must_equal last_trip_hash[:rider_id], "Rider ID of last trip is incorrect."
+      RideShare::Trip.all.last.date.must_equal last_trip_hash[:date], "Date of last trip is incorrect."
+      RideShare::Trip.all.last.rating.must_equal last_trip_hash[:rating], "Rating of last trip is incorrect."
+    end
+
+  end
 
 end
