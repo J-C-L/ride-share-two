@@ -42,8 +42,14 @@ describe "RideShare::Trip" do
 
     it "Raises an ArgumentError when created with a non-numeric rating" do
       proc {
-        RideShare::Trip.new({rating:'a'})
+        RideShare::Trip.new({rating: 'a'})
       }.must_raise ArgumentError
+    end
+
+    it "Accepts a float or integer for rating, including 5 and 1." do
+      RideShare::Trip.new({rating: 5})
+      RideShare::Trip.new({rating: 1})
+      RideShare::Trip.new({rating: 2.2})
     end
   end
 
@@ -75,28 +81,54 @@ describe "RideShare::Trip" do
   describe "RideShare::Trip.all_by_driver" do
 
     it "Returns an array of Trip instances" do
-      driver_id = 42
-      RideShare::Trip.all_by_driver(driver_id).must_be_instance_of Array, "Not an array."
-      RideShare::Trip.all_by_driver(driver_id).each do |trip|
+      RideShare::Trip.all_by_driver(42).must_be_instance_of Array, "Not an array."
+      RideShare::Trip.all_by_driver(42).each do |trip|
         trip.must_be_instance_of  RideShare::Trip, "Not an instance of Trip class."
       end
     end
 
-    it "Returns  trips with the desired driver id" do
+    it "Returns trips with the desired driver id" do
+      RideShare::Trip.all_by_driver(42).each do |trip|
+        trip.driver_id.must_equal 42
+      end
     end
 
-    it "Returns ALL trips with the desired driver id" do
+    it "Returns an array whose length is the number of trips for a particular driver_id from the CSV" do
+      rides_by_driver_42 = CSV.read("support/trips.csv").find_all {|line| line[1] == '42'}
+      RideShare::Trip.all_by_driver(42).length.must_equal rides_by_driver_42.length
     end
 
-
-    it "Returns empty array if no trips with the desired driver id are found."do
-      RideShare::Trip.all_by_driver(500).must_equal []
-      RideShare::Trip.all_by_driver(500).must_be_instance_of Array
-      RideShare::Trip.all_by_driver(500).length.must_equal 0
-  end
-
-
+    it "Returns empty array if no trips are found with the requested driver id."do
+    RideShare::Trip.all_by_driver(500).must_equal []
+    RideShare::Trip.all_by_driver('Dan').must_equal []
+    end
 end
 
-# find all trip instances for a given rider ID
+
+describe "RideShare::Trip.all_by_rider" do
+
+  it "Returns an array of Trip instances" do
+    RideShare::Trip.all_by_rider(54).must_be_instance_of Array, "Not an array."
+    RideShare::Trip.all_by_rider(54).each do |trip|
+      trip.must_be_instance_of  RideShare::Trip, "Not an instance of Trip class."
+    end
+  end
+
+  it "Returns trips with the desired rider 54" do
+    RideShare::Trip.all_by_rider(54).each do |trip|
+      trip.rider_id.must_equal 54
+    end
+  end
+
+  it "Returns an array whose length is the number of trips for a particular rider_54 from the CSV" do
+    rides_by_rider_54 = CSV.read("support/trips.csv").find_all {|line| line[2] == '54'}
+    RideShare::Trip.all_by_rider(54).length.must_equal rides_by_rider_54.length
+  end
+
+  it "Returns empty array if no trips are found with the requested rider." do
+  RideShare::Trip.all_by_rider(540).must_equal []
+  RideShare::Trip.all_by_rider('Dan').must_equal []
+  end
+end
+
 end

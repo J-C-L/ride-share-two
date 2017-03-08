@@ -14,7 +14,7 @@ module RideShare
       @date = args[:date]
       @rating = args[:rating]
 
-      raise ArgumentError.new("Rating must be a number from 1 to 5.") if @rating.class != (Integer||Float)
+      raise ArgumentError.new("Rating must be a number from 1 to 5.") if ((@rating.class != Integer) && (@rating.class != Float))
       raise Invalid_Rating_Error.new("Rating must be from 1 to 5.") if !(1 <= @rating.to_f && @rating.to_f <=5)
     end
 
@@ -26,15 +26,20 @@ module RideShare
       return all_trips
     end
 
+#################Combine to a all_by(type, id) method
     def self.all_by_driver(driver_id)
-
       all.select do  |trip|
-        #Note: Will return nil if driver id is not found
+        #Note: Will return an empty array if driver id is not found
         trip.driver_id == driver_id
       end
     end
 
-
+    def self.all_by_rider(rider_id)
+      all.select do  |trip|
+        #Note: Will return an empty array if driver id is not found
+        trip.rider_id == rider_id
+      end
+    end
 
 
 
