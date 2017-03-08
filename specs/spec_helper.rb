@@ -1,15 +1,15 @@
+require 'simplecov'
+SimpleCov.start
+
+require 'pry'
 
 require 'minitest'
 require 'minitest/autorun'
 require 'minitest/reporters'
 require 'minitest/pride'
 
-require 'simplecov'
-SimpleCov.start
-
 reporter_options = {color: true}
 Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(reporter_options)]
-
 
 #Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 

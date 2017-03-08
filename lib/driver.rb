@@ -34,12 +34,9 @@ module RideShare
       Trip.all_by('driver', @id)
     end
 
-    # def ave_rating
-    #   # ratings = trips.map {|trip| trip.rating}
-    #   # ratings.reduce(:+)/ratings.length
-    #   # OR
-    #   # trips.map {|trip| trip.rating}.reduce(:+)/trips.length
-    # end
+    def ave_rating
+      trips.map {|trip| trip.rating}.reduce(:+)/trips.length.to_f
+    end
 
 
   end

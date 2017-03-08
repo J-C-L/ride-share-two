@@ -83,4 +83,19 @@ describe "RideShare::Driver.trips" do
   end
 end
 
+describe "RideShare::Driver.ave_rating" do
+
+  it "Returns an integer" do
+     new_driver.ave_rating.must_be_instance_of Float
+  end
+
+  it "Returns the average rating of a driver" do
+      new_driver.ave_rating.must_equal 16/7.0
+  end
+
+  it "returns nil if the driver has had no trips or has received no ratings" do
+  end
+
+end
+
 end
