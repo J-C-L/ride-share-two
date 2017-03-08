@@ -14,6 +14,9 @@ describe "RideShare::Driver" do
 
     it "Takes a argument hash and assigns an id, name, and vin" do
 
+      new_driver.must_respond_to :id
+      new_driver.id.must_equal new_driver_hash[:id]
+
       new_driver.must_respond_to :name
       new_driver.name.must_equal new_driver_hash[:name]
 

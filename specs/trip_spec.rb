@@ -114,6 +114,7 @@ describe "RideShare::Trip" do
     it "Returns empty array if no trips are found with the requested driver id."do
     RideShare::Trip.all_by('driver', 500).must_equal []
     RideShare::Trip.all_by('driver', 'Dan').must_equal []
+    RideShare::Trip.all_by('driver', 100).must_equal []
   end
 
   it "Returns trips with the desired rider id" do

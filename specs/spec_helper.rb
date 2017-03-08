@@ -5,7 +5,6 @@ require 'minitest/reporters'
 require 'minitest/pride'
 
 require 'simplecov'
-
 SimpleCov.start
 
 reporter_options = {color: true}
