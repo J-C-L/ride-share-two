@@ -26,20 +26,33 @@ module RideShare
       return all_trips
     end
 
-#################Combine to a all_by(type, id) method
-    def self.all_by_driver(driver_id)
-      all.select do  |trip|
-        #Note: Will return an empty array if driver id is not found
-        trip.driver_id == driver_id
+    #assuming type will be either 'driver' or 'rider'
+    def self.all_by(type, id)
+      case type
+      when 'driver'
+        trips = all.select {|trip| trip.driver_id == id}
+      when 'rider'
+        trips = all.select {|trip| trip.rider_id == id}
+      else puts "Doesn't recognize that type of user."
       end
+      return trips
+      #Note: Will return an empty array if type is 'driver' or 'rider' and requested id is not found. Will return nil if type is neither 'driver' nor 'rider'
     end
 
-    def self.all_by_rider(rider_id)
-      all.select do  |trip|
-        #Note: Will return an empty array if driver id is not found
-        trip.rider_id == rider_id
-      end
-    end
+
+    # def self.all_by_driver(driver_id)
+    #   all.select do  |trip|
+    #     #Note: Will return an empty array if driver id is not found
+    #     trip.driver_id == driver_id
+    #   end
+    # end
+    #
+    # def self.all_by_rider(rider_id)
+    #   all.select do  |trip|
+    #     #Note: Will return an empty array if driver id is not found
+    #     trip.rider_id == rider_id
+    #   end
+    # end
 
 
 
