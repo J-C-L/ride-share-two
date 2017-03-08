@@ -72,4 +72,15 @@ describe "RideShare::Driver.find" do
     RideShare::Driver.find(100).id.must_equal RideShare::Driver.all.last.id, "Cannot find last account"
   end
 end
+
+describe "RideShare::Driver.trips" do
+
+  #This directly uses the RideShare::Trip.all_by(type, id) method, so we do not need to re-test the full functionality of that method. To test that the Driver.trips method is working appropriately, we can test one, nominal case.
+  it "Returns an array of Trip instances" do
+    new_driver.trips.length.must_equal 7
+    new_driver.trips.must_be_instance_of Array
+    new_driver.trips[0].must_be_instance_of RideShare::Trip
+  end
+end
+
 end

@@ -1,5 +1,4 @@
 require 'csv'
-require_relative 'exception_classes.rb'
 
 module RideShare
 
@@ -28,11 +27,11 @@ module RideShare
       return found_rider
     end
 
-
-#     # def trips
-#     #   RideShare::Trip.find_all_by_driver(@id)
-#     # end
 #
+#     def trips
+#       RideShare::Trip.find_all_by('rider', @id)
+#     end
+# #
 #     # def ave_rating
 #     #   # ratings = trips.map {|trip| trip.rating}
 #     #   # ratings.reduce(:+)/ratings.length
