@@ -11,6 +11,7 @@ module RideShare
       @name = args[:name]
       @vin = args[:vin]
       #Raising an error here to disallow drivers without valid cars
+      raise Invalid_VIN_Error.new("No VIN given") if vin == nil
       raise Invalid_VIN_Error.new("Invalid vin") if vin.length != 17
     end
 
@@ -35,14 +36,9 @@ module RideShare
     end
 
     def ave_rating
+      return  nil if trips.length == 0
       trips.map {|trip| trip.rating}.reduce(:+)/trips.length.to_f
     end
 
-
   end
 end
-
-#puts RideShare::Driver.all[5].name
-#puts CSV.read("support/drivers.csv").length
-# puts RideShare::Driver.find(100).name
-# puts RideShare::Driver.all.last.name

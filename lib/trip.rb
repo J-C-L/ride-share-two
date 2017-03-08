@@ -1,7 +1,4 @@
 require 'csv'
-require_relative 'exception_classes.rb'
-require_relative 'driver.rb'
-require_relative 'rider.rb'
 
 module RideShare
 
@@ -37,7 +34,7 @@ module RideShare
       else puts "Doesn't recognize that type of user."
       end
       return trips
-      #Note: Will return an empty array if type is 'driver' or 'rider' and requested id is not found. Will return nil if type is neither 'driver' nor 'rider'
+      #Note: Will return an empty array if type is 'driver' or 'rider' and requested id is not found. Will return nil if type is neither 'driver' nor 'rider'.
     end
 
 
@@ -45,28 +42,9 @@ module RideShare
       Driver.find(@driver_id)
     end
 
-    # def rider
-    #   Rider.find(@rider_id)
-    # end
+    def rider
+      Rider.find(@rider_id)
+    end
 
   end
 end
-
-# new_trip_hash = {trip_id:42, driver_id:69, rider_id:267, date:'2017-01-14', rating:2}
-# test_trip = RideShare::Trip.new(new_trip_hash)
-# puts test_trip.driver.vin
-
-
-# def self.all_by_driver(driver_id)
-#   all.select do  |trip|
-#     #Note: Will return an empty array if driver id is not found
-#     trip.driver_id == driver_id
-#   end
-# end
-#
-# def self.all_by_rider(rider_id)
-#   all.select do  |trip|
-#     #Note: Will return an empty array if driver id is not found
-#     trip.rider_id == rider_id
-#   end
-# end

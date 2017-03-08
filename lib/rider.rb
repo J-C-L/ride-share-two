@@ -27,23 +27,10 @@ module RideShare
       return found_rider
     end
 
-#
-#     def trips
-#       RideShare::Trip.find_all_by('rider', @id)
-#     end
-# #
-#     # def ave_rating
-#     #   # ratings = trips.map {|trip| trip.rating}
-#     #   # ratings.reduce(:+)/ratings.length
-#     #   #OR
-#     #   #trips.map {|trip| trip.rating}.reduce(:+)/trips.length
-#     # end
-#
-#
-   end
- end
-#
-# #puts RideShare::Driver.all[5].name
-# #puts CSV.read("support/drivers.csv").length
-# # puts RideShare::Driver.find(100).name
-# # puts RideShare::Driver.all.last.name
+
+    def trips
+      Trip.all_by('rider', @id)
+    end
+    
+  end
+end

@@ -33,7 +33,6 @@ describe "RideShare::Rider" do
       end
     end
 
-
     it "Returns an array with the correct number of riders" do
       number_of_riders = CSV.read("support/riders.csv").length - 1
       RideShare::Rider.all.length.must_equal number_of_riders, "Wrong number of riders"
@@ -63,6 +62,52 @@ describe "RideShare::Rider.find" do
     #Checking that the id's of the returned and last riders are the same, since they will not be the same internal object due to 'all' having been called separated for each.
     RideShare::Rider.find(300).id.must_equal RideShare::Rider.all.last.id, "Cannot find last account"
   end
+
+  it "Returns nil if no rider with the given id is found." do
+    RideShare::Rider.find(500).must_equal nil
+  end
+end
+
+describe "RideShare::Rider.trips" do
+
+  #This directly uses the RideShare::Trip.all_by(type, id) method, so we do not need to re-test the full functionality of that method. To test that the Rider.trips method is working appropriately, we can test one, nominal case and one edge case.
+
+  it "Returns an array of Trip instances" do
+    RideShare::Rider.all
+    rider_54 = RideShare::Rider.find(54)
+    rider_54.trips.must_be_instance_of Array
+    rider_54.trips[0].must_be_instance_of RideShare::Trip
+    rider_54.trips.length.must_equal 2
+  end
+
+
+  it "returns an empty array if the driver has had no trips" do
+    RideShare::Rider.all
+    rider_300 = RideShare::Rider.find(300)
+    rider_300.trips.must_equal []
+  end
+end
+
+
+
+
+describe "RideShare::Driver.drivers_used" do
+it "Returns an array" do
+  new_driver.drivers_used.must_be_instance_of Array
+end
+#
+# it "Returns an array of driver instances" do
+#   new_driver.drivers_used.each do |driver|
+#     trip.must_be_instance_of RideShare::Driver
+# end
+#
+# it "Returns an array of ALL drivers used for that riderinstances" do
+#   new_driver.drivers_used.
+# end
+#
+# it "test an edge case" do
+# end
+
 end
 
 end

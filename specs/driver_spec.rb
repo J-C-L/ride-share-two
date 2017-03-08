@@ -24,10 +24,14 @@ describe "RideShare::Driver" do
       new_driver.vin.must_equal new_driver_hash[:vin]
     end
 
-    it "Raises an Invalid_VIN_Error when created with an invalid vin (ie. vin of wrong length)" do
+    it "Raises an Invalid_VIN_Error when created with an invalid vin (ie. vin of wrong length) or if no VIN is provided" do
       bad_vin_hash = {vin:'1B9TPKC24YPL290Y4-9999'}
+      no_vin = {id:999}
       proc {
         RideShare::Driver.new(bad_vin_hash)
+      }.must_raise RideShare::Invalid_VIN_Error
+      proc {
+        RideShare::Driver.new(no_vin)
       }.must_raise RideShare::Invalid_VIN_Error
     end
   end
@@ -71,31 +75,46 @@ describe "RideShare::Driver.find" do
     #Checking that the id's of the returned and last drivers are the same, since they will not be the same internal object due to 'all' having been called separated for each.
     RideShare::Driver.find(100).id.must_equal RideShare::Driver.all.last.id, "Cannot find last account"
   end
-end
 
-describe "RideShare::Driver.trips" do
-
-  #This directly uses the RideShare::Trip.all_by(type, id) method, so we do not need to re-test the full functionality of that method. To test that the Driver.trips method is working appropriately, we can test one, nominal case.
-  it "Returns an array of Trip instances" do
-    new_driver.trips.length.must_equal 7
-    new_driver.trips.must_be_instance_of Array
-    new_driver.trips[0].must_be_instance_of RideShare::Trip
+  it "Returns nil if no driver with the given id is found." do
+    RideShare::Driver.find(500).must_equal nil
   end
 end
 
-describe "RideShare::Driver.ave_rating" do
+  describe "RideShare::Driver.trips" do
 
-  it "Returns an integer" do
-     new_driver.ave_rating.must_be_instance_of Float
+    #This directly uses the RideShare::Trip.all_by(type, id) method, so we do not need to re-test the full functionality of that method. To test that the Driver.trips method is working appropriately, we can test one, nominal case and one edge case.
+    it "Returns an array of Trip instances" do
+      new_driver.trips.length.must_equal 7
+      new_driver.trips.must_be_instance_of Array
+      new_driver.trips[0].must_be_instance_of RideShare::Trip
+    end
+
+    it "returns an empty array if the driver has had no trips" do
+      RideShare::Driver.all
+      driver_100 = RideShare::Driver.find(100)
+      #We know this driver has no trips
+      driver_100.trips.must_equal []
+    end
   end
 
-  it "Returns the average rating of a driver" do
+  describe "RideShare::Driver.ave_rating" do
+
+    it "Returns an integer" do
+      new_driver.ave_rating.must_be_instance_of Float
+    end
+
+    it "Returns the average rating of a driver" do
       new_driver.ave_rating.must_equal 16/7.0
-  end
+    end
 
-  it "returns nil if the driver has had no trips or has received no ratings" do
-  end
+    it "returns nil if the driver has had no trips or has received no ratings" do
+      RideShare::Driver.all
+      driver_100 = RideShare::Driver.find(100)
+      #We know this driver has no trips
+      driver_100.ave_rating.must_be_instance_of NilClass
+    end
 
-end
+  end
 
 end
