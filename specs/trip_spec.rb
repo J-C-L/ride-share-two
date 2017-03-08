@@ -128,11 +128,35 @@ describe "RideShare::Trip" do
   end
 
   it "Returns empty array if no trips are found with the requested rider id." do
-  RideShare::Trip.all_by('rider', 500).must_equal []
-  RideShare::Trip.all_by('rider','Dan').must_equal []
+    RideShare::Trip.all_by('rider', 500).must_equal []
+    RideShare::Trip.all_by('rider','Dan').must_equal []
   end
 end
 
+describe "RideShare::Trip#driver" do
+
+  it "Returns a driver" do
+    new_trip.driver.must_be_instance_of RideShare::Driver
+  end
+
+  it "Returns the correct driver" do
+    new_trip.driver.id.must_equal new_trip.driver_id
+  end
+
+end
+
+
+# describe "RideShare::Trip#rider" do
+#
+#   it "Returns a rider" do
+#     new_trip.rider.must_be_instance_of RideShare::Rider
+#   end
+#
+#   it "Returns the correct rider" do
+#     new_trip.rider.id.must_equal new_trip.rider_id
+#   end
+#
+# end
 
 end
 

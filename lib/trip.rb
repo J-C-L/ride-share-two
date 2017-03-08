@@ -1,5 +1,7 @@
 require 'csv'
 require_relative 'exception_classes.rb'
+require_relative 'driver.rb'
+require_relative 'rider.rb'
 
 module RideShare
 
@@ -26,7 +28,6 @@ module RideShare
       return all_trips
     end
 
-    #assuming type will be either 'driver' or 'rider'
     def self.all_by(type, id)
       case type
       when 'driver'
@@ -40,22 +41,32 @@ module RideShare
     end
 
 
-    # def self.all_by_driver(driver_id)
-    #   all.select do  |trip|
-    #     #Note: Will return an empty array if driver id is not found
-    #     trip.driver_id == driver_id
-    #   end
+    def driver
+      Driver.find(@driver_id)
+    end
+
+    # def rider
+    #   Rider.find(@rider_id)
     # end
-    #
-    # def self.all_by_rider(rider_id)
-    #   all.select do  |trip|
-    #     #Note: Will return an empty array if driver id is not found
-    #     trip.rider_id == rider_id
-    #   end
-    # end
-
-
-
 
   end
 end
+
+# new_trip_hash = {trip_id:42, driver_id:69, rider_id:267, date:'2017-01-14', rating:2}
+# test_trip = RideShare::Trip.new(new_trip_hash)
+# puts test_trip.driver.vin
+
+
+# def self.all_by_driver(driver_id)
+#   all.select do  |trip|
+#     #Note: Will return an empty array if driver id is not found
+#     trip.driver_id == driver_id
+#   end
+# end
+#
+# def self.all_by_rider(rider_id)
+#   all.select do  |trip|
+#     #Note: Will return an empty array if driver id is not found
+#     trip.rider_id == rider_id
+#   end
+# end
