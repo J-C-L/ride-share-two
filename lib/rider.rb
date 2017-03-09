@@ -22,7 +22,8 @@ module RideShare
 
     def self.find(rider_id)
       found_rider = all.find {|rider| rider.id == rider_id}
-      # raise ID_Not_Found_Error.new("That rider id doesn't exist!") if found_rider==nil
+
+      puts "That rider doesn't exist." if found_rider==nil    
       #Note: If the rider id isn't found, method will return nil.
       return found_rider
     end
@@ -31,6 +32,11 @@ module RideShare
     def trips
       Trip.all_by('rider', @id)
     end
-    
+
+    def drivers_used
+      trips.map {|trip| trip.driver}
+    end
+
+
   end
 end

@@ -2,7 +2,7 @@ require_relative '../specs/spec_helper'
 
 describe "RideShare::Rider" do
 
-  let(:new_rider_hash) { {id:42, name:'Marcelina Howe', phone: '656-421-8363 x85791'} }
+  let(:new_rider_hash) { {id:146, name:'Kirk Hand', phone: '(175) 727-5781'} }
   let(:new_rider) {RideShare::Rider.new(new_rider_hash)}
 
   describe "RideShare::Rider#initialize" do
@@ -52,20 +52,18 @@ describe "RideShare::Rider.find" do
     RideShare::Rider.find(88).must_be_instance_of RideShare::Rider, "Does not return a rider"
   end
 
-  #   # it "Raises ArgumentError if rider id doesn't exist" do
-  #   #   proc {
-  #   #     RideShare::Rider.find(500)
-  #   #   }.must_raise RideShare::ID_Not_Found_Error
-  #   # end
-  #
+
   it "Can find the last rider from the CSV" do
     #Checking that the id's of the returned and last riders are the same, since they will not be the same internal object due to 'all' having been called separated for each.
     RideShare::Rider.find(300).id.must_equal RideShare::Rider.all.last.id, "Cannot find last account"
   end
 
-  it "Returns nil if no rider with the given id is found." do
-    RideShare::Rider.find(500).must_equal nil
-  end
+  it "Outputs a message and returns nil if no rider with the given id is found." do
+    proc {
+      RideShare::Rider.find(500)
+    }.must_output(/.+/)
+    RideShare::Rider.find(500).must_be_instance_of NilClass
+  end  
 end
 
 describe "RideShare::Rider.trips" do
@@ -89,24 +87,27 @@ describe "RideShare::Rider.trips" do
 end
 
 
-
-
 describe "RideShare::Driver.drivers_used" do
-it "Returns an array" do
-  new_driver.drivers_used.must_be_instance_of Array
-end
-#
-# it "Returns an array of driver instances" do
-#   new_driver.drivers_used.each do |driver|
-#     trip.must_be_instance_of RideShare::Driver
-# end
-#
-# it "Returns an array of ALL drivers used for that riderinstances" do
-#   new_driver.drivers_used.
-# end
-#
-# it "test an edge case" do
-# end
+  it "Returns an array" do
+    new_rider.drivers_used.must_be_instance_of Array
+  end
+
+  it "Returns an array of driver instances" do
+    new_rider.drivers_used.each do |driver|
+      driver.must_be_instance_of RideShare::Driver
+    end
+  end
+
+  it "Returns an array of ALL drivers used for that rider" do
+    new_rider.drivers_used.length.must_equal 4
+    #puts new_rider.drivers_used.each {|driver| puts driver.id}
+    new_rider.drivers_used.map {|driver| driver.id}.must_equal [67,17,77, 1]
+  end
+
+  it "Returns an empty array if the rider has taken no rides, and thus has had no drivers." do
+    rider_300 = RideShare::Rider.find(300)
+    rider_300.drivers_used.must_equal []
+  end
 
 end
 
