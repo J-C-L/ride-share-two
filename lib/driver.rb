@@ -32,7 +32,6 @@ module RideShare
 
 
     def trips
-      #Trip is a class method of the Trip class.
       Trip.all_by('driver', @id)
     end
 
