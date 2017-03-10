@@ -24,7 +24,7 @@ describe "RideShare::Driver" do
       new_driver.vin.must_equal new_driver_hash[:vin]
     end
 
-    it "Raises an Invalid_VIN_Error when created with an invalid vin (ie. vin of wrong length) or if no VIN is provided" do
+    it "Raises an Invalid_VIN_Error when created with an invalid vin (ie. vin of wrong length or no VIN is provided)." do
       bad_vin_hash = {vin:'1B9TPKC24YPL290Y4-9999'}
       no_vin = {id:999}
       proc {
@@ -74,7 +74,7 @@ describe "RideShare::Driver.find" do
   end
 
   it "Can find the last driver from the CSV" do
-    #Checking that the id's of the returned and last drivers are the same, since they will not be the same internal object due to 'all' having been called separated for each.
+    #Using 'having the same id's' as a proxy for 'being the dame driver', since the 'last driver returned by 'all' after reading the CSV' and the appropriate driver returned by 'find' will not be the same internal object due to 'all' having been called separately for each.
     RideShare::Driver.find(100).id.must_equal RideShare::Driver.all.last.id, "Cannot find last account"
   end
 
@@ -87,22 +87,25 @@ describe "RideShare::Driver.trips" do
 
   #This directly uses the RideShare::Trip.all_by(type, id) method, so we do not need to re-test the full functionality of that method. To test that the Driver.trips method is working appropriately, we can test one, nominal case and one edge case.
   it "Returns an array of Trip instances" do
-    new_driver.trips.length.must_equal 7
+
     new_driver.trips.must_be_instance_of Array
-    new_driver.trips[0].must_be_instance_of RideShare::Trip
+    new_driver.trips.length.must_equal 7
+    new_driver.trips.each do |trip|
+      trip.must_be_instance_of RideShare::Trip
+    end
   end
 
   it "returns an empty array if the driver has had no trips" do
     RideShare::Driver.all
     driver_100 = RideShare::Driver.find(100)
-    #We know this driver has no trips
+    #We know from manual inspection that this driver has no trips
     driver_100.trips.must_equal []
   end
 end
 
 describe "RideShare::Driver.ave_rating" do
 
-  it "Returns an integer" do
+  it "Returns a float." do
     new_driver.ave_rating.must_be_instance_of Float
   end
 
@@ -116,7 +119,6 @@ describe "RideShare::Driver.ave_rating" do
     #We know this driver has no trips
     driver_100.ave_rating.must_be_instance_of NilClass
   end
-
 end
 
 end

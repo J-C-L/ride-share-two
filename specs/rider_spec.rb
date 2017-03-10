@@ -54,7 +54,7 @@ describe "RideShare::Rider.find" do
 
 
   it "Can find the last rider from the CSV" do
-    #Checking that the id's of the returned and last riders are the same, since they will not be the same internal object due to 'all' having been called separated for each.
+    #Using 'having the same id's' as a proxy for 'being the dame rider', since the 'last rider returned by 'all' after reading the CSV' and the appropriate rider returned by 'find' will not be the same internal object due to 'all' having been called separately for each.
     RideShare::Rider.find(300).id.must_equal RideShare::Rider.all.last.id, "Cannot find last account"
   end
 
@@ -63,25 +63,25 @@ describe "RideShare::Rider.find" do
       RideShare::Rider.find(500)
     }.must_output(/.+/)
     RideShare::Rider.find(500).must_be_instance_of NilClass
-  end  
+  end
 end
 
 describe "RideShare::Rider.trips" do
 
   #This directly uses the RideShare::Trip.all_by(type, id) method, so we do not need to re-test the full functionality of that method. To test that the Rider.trips method is working appropriately, we can test one, nominal case and one edge case.
-
   it "Returns an array of Trip instances" do
-    RideShare::Rider.all
-    rider_54 = RideShare::Rider.find(54)
-    rider_54.trips.must_be_instance_of Array
-    rider_54.trips[0].must_be_instance_of RideShare::Trip
-    rider_54.trips.length.must_equal 2
+    new_rider.trips.must_be_instance_of Array
+    new_rider.trips.length.must_equal 4
+    new_rider.trips.each do |trip|
+      trip.must_be_instance_of RideShare::Trip
+    end
   end
 
 
   it "returns an empty array if the driver has had no trips" do
     RideShare::Rider.all
     rider_300 = RideShare::Rider.find(300)
+    #We know from manual inspection that this driver has no trips
     rider_300.trips.must_equal []
   end
 end
@@ -100,7 +100,6 @@ describe "RideShare::Driver.drivers_used" do
 
   it "Returns an array of ALL drivers used for that rider" do
     new_rider.drivers_used.length.must_equal 4
-    #puts new_rider.drivers_used.each {|driver| puts driver.id}
     new_rider.drivers_used.map {|driver| driver.id}.must_equal [67,17,77, 1]
   end
 
@@ -108,7 +107,6 @@ describe "RideShare::Driver.drivers_used" do
     rider_300 = RideShare::Rider.find(300)
     rider_300.drivers_used.must_equal []
   end
-
 end
 
 end

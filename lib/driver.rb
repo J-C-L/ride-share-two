@@ -26,12 +26,13 @@ module RideShare
     def self.find(driver_id)
       found_driver = all.find {|driver| driver.id == driver_id}
       puts "That driver doesn't exist." if found_driver == nil
-      #Note: If the driver id isn't found, method will return nil.
+      #Note: If the requested driver id isn't found, method will return nil, and not raise an error.
       return found_driver
     end
 
 
     def trips
+      #Trip is a class method of the Trip class.
       Trip.all_by('driver', @id)
     end
 

@@ -36,7 +36,7 @@ describe "RideShare::Trip" do
         RideShare::Trip.new({rating:0})
       }.must_raise RideShare::Invalid_Rating_Error
       proc {
-        RideShare::Trip.new({rating:6})
+        RideShare::Trip.new({rating:5.5})
       }.must_raise RideShare::Invalid_Rating_Error
     end
 
@@ -112,8 +112,10 @@ describe "RideShare::Trip" do
     end
 
     it "Returns empty array if no trips are found with the requested driver id."do
+    #Driver does not exist
     RideShare::Trip.all_by('driver', 500).must_equal []
     RideShare::Trip.all_by('driver', 'Dan').must_equal []
+    #Driver exists, but has no trips
     RideShare::Trip.all_by('driver', 100).must_equal []
   end
 
@@ -129,14 +131,17 @@ describe "RideShare::Trip" do
   end
 
   it "Returns empty array if no trips are found with the requested rider id." do
+    #Rider does not exist
     RideShare::Trip.all_by('rider', 500).must_equal []
     RideShare::Trip.all_by('rider','Dan').must_equal []
+    #Rider exists, but has no trips
+    RideShare::Trip.all_by('rider', 42).must_equal []
   end
 end
 
 
 describe "RideShare::Trip#driver" do
-
+  #This directly uses the RideShare::Driver.find method, so we do not need to re-test the full functionality of that method.
   it "Returns a driver" do
     new_trip.driver.must_be_instance_of RideShare::Driver
   end
@@ -144,13 +149,11 @@ describe "RideShare::Trip#driver" do
   it "Returns the correct driver" do
     new_trip.driver.id.must_equal new_trip.driver_id
   end
-
 end
 
 
-
 describe "RideShare::Trip#rider" do
-
+  #This directly uses the RideShare::Rider.find method, so we do not need to re-test the full functionality of that method.
   it "Returns a rider" do
     new_trip.rider.must_be_instance_of RideShare::Rider
   end
@@ -158,6 +161,6 @@ describe "RideShare::Trip#rider" do
   it "Returns the correct rider" do
     new_trip.rider.id.must_equal new_trip.rider_id
   end
-
 end
+
 end

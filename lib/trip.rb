@@ -37,12 +37,13 @@ module RideShare
       #Note: Will return an empty array if type is 'driver' or 'rider' and requested id is not found. Will return nil if type is neither 'driver' nor 'rider'.
     end
 
-
     def driver
+      #Driver is a class method of the Driver class.
       Driver.find(@driver_id)
     end
 
     def rider
+      #Rider is a class method of the Rider class.
       Rider.find(@rider_id)
     end
 
