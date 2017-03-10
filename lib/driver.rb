@@ -41,5 +41,9 @@ module RideShare
       trips.map {|trip| trip.rating}.reduce(:+)/trips.length.to_f
     end
 
+    def total_revenue
+      (trips.map {|trip| trip.cost}.reduce(:+) - 1.65) * 0.80
+    end
+
   end
 end

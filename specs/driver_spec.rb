@@ -121,4 +121,20 @@ describe "RideShare::Driver.ave_rating" do
   end
 end
 
+
+describe "RideShare::Driver.total_revenue" do
+  it "Returns an float" do
+    new_driver.total_revenue.must_be_instance_of Float
+  end
+
+  it "Returns the correct revenue for the driver's trips" do
+    trips = CSV.read('support/trips_optionals.csv')
+    trips_by_driver42 = trips.select {|trip| trip[1].to_i == 42}
+    driver_42_revenue =(trips_by_driver42.map {|trip| trip[-2].to_f}.reduce(:+) - 1.65) *0.80
+
+    new_driver.total_revenue.must_equal driver_42_revenue
+  end
+  #Didn't test edge cases because of time constraints.
+end
+
 end
