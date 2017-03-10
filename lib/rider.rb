@@ -38,5 +38,13 @@ module RideShare
       #If rider has taken no trips, method will return an empty array.
     end
 
+    def total_spent
+      trips.map {|trip| trip.cost}.reduce(:+)
+    end
+
+    def total_time
+      trips.map {|trip| trip.duration}.reduce(:+)
+    end
+
   end
 end

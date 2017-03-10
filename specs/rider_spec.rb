@@ -87,7 +87,7 @@ describe "RideShare::Rider.trips" do
 end
 
 
-describe "RideShare::Driver.drivers_used" do
+describe "RideShare::Rider.driver.drivers_used" do
   it "Returns an array" do
     new_rider.drivers_used.must_be_instance_of Array
   end
@@ -107,6 +107,33 @@ describe "RideShare::Driver.drivers_used" do
     rider_300 = RideShare::Rider.find(300)
     rider_300.drivers_used.must_equal []
   end
+end
+
+describe "RideShare::Rider.total_spent" do
+  it "Returns an float" do
+    new_rider.total_spent.must_be_instance_of Float
+  end
+
+  it "Returns the sum of the costs of their trips" do
+    trips = CSV.read('support/trips_optionals.csv')
+    trips_by_rider146 = trips.select {|trip| trip[2].to_i == 146}
+    new_rider.total_spent.must_equal trips_by_rider146.map{|trip| trip[-2].to_f}.reduce(:+)
+  end
+  #Didn't test edge cases because of time constraints.
+end
+
+
+describe "RideShare::Rider.total_time" do
+  it "Returns an float" do
+    new_rider.total_time.must_be_instance_of Float
+  end
+
+  it "Returns the sum of the durations of their trips" do
+    trips = CSV.read('support/trips_optionals.csv')
+    trips_by_rider146 = trips.select {|trip| trip[2].to_i == 146}
+    new_rider.total_time.must_equal trips_by_rider146.map{|trip| trip[-1].to_f}.reduce(:+)
+  end
+  #Didn't test edge cases because of time constraints.
 end
 
 end
